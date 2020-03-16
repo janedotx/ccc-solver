@@ -1,0 +1,23 @@
+{
+  "name": "ccc-solver",
+  "version": "1.0.0",
+  "description": "An algorithm that fairly distributes childcare. Each caregiver submits a schedule indicating which days they are available, and the algorithm will generate a schedule that distributes the childcare assignments as evenly as possible.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/janedotx/ccc-solver.git"
+  },
+  "keywords": [
+    "scheduler",
+    "childcare"
+  ],
+  "author": "@itthekai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/janedotx/ccc-solver/issues"
+  },
+  "homepage": "https://github.com/janedotx/ccc-solver#readme"
+}
