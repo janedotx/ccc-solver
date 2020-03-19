@@ -1,3 +1,4 @@
+"use strict";
 const solver = require("javascript-lp-solver");
 
 function shuffle(a) {
@@ -26,18 +27,18 @@ function computeSchedule(nworkers, workerAvailability) {
     };
 
     var ardays = [];
-    for (iday = 0; iday < workerAvailability.length; iday += 1) {
+    for (let iday = 0; iday < workerAvailability.length; iday += 1) {
         ardays.push(iday);
     }
     shuffle(ardays); //shuffle for better randomization
 
     var ndays = 0; // tracks total days currently entered in optimization problem, increments each time a new day is added
     // note that days with no availability for any worker will not be added into the solver
-    for (iday of ardays) {
-        day = workerAvailability[iday];
+    for (let iday of ardays) {
+        let day = workerAvailability[iday];
         day = shuffle(day); //shuffle the workers in the days
         for (var iworker = 0; iworker < day.length; iworker++) {
-            availableWorker = day[iworker];
+            let availableWorker = day[iworker];
             //create a variable like 'assignedp2d13' which will be 1 if the parent is assigned that day, 0 otherwsie
             let vn = "assignedw" + availableWorker + "d" + iday; // 'assignedp2d13'
             let vns = "aw" + availableWorker + "d" + iday; // a short name of the variable, used to constrain it to be non-negative
@@ -66,8 +67,8 @@ function computeSchedule(nworkers, workerAvailability) {
     let fairallocround = Math.round(fairalloc);
 
     /* for each worker */
-    minmaxar = ["min", "max"];
-    for (c of minmaxar) {
+    let minmaxar = ["min", "max"];
+    for (let c of minmaxar) {
         for (iworker = 0; iworker < nworkers; iworker += 1) {
             let vw = c + "totalw" + iworker;
             for (var jslack = 0; jslack < JSLACK_MAX; jslack += 1) {
@@ -115,12 +116,12 @@ function computeSchedule(nworkers, workerAvailability) {
     //console.log("solved: ", results);
 
     let outputs = [];
-    for (iday = 0; iday < workerAvailability.length; iday += 1) {
+    for (let iday = 0; iday < workerAvailability.length; iday += 1) {
         outputs[iday] = -1; //initialize assignment to 0
     }
     if (results.feasible) {
         /* for each day, assign it the appropriate classes for its assignment */
-        for (iday = 0; iday < workerAvailability.length; iday += 1) {
+        for (let iday = 0; iday < workerAvailability.length; iday += 1) {
             for (iworker = 0; iworker < nworkers; iworker += 1) {
                 let vn = "assignedw" + iworker + "d" + iday;
                 if (results[vn] == 1) {
