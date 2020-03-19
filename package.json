@@ -4,10 +4,11 @@
   "description": "An algorithm that fairly distributes childcare. Each caregiver submits a schedule indicating which days they are available, and the algorithm will generate a schedule that distributes the childcare assignments as evenly as possible.",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "mocha"
   },
   "dependencies": {
-    "javascript-lp-solver": "0.4.24"
+    "javascript-lp-solver": "0.4.24",
+    "mocha": "^7.1.1"
   },
   "repository": {
     "type": "git",
