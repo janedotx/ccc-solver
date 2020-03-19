@@ -1,6 +1,6 @@
 {
   "name": "ccc-solver",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An algorithm that fairly distributes childcare. Each caregiver submits a schedule indicating which days they are available, and the algorithm will generate a schedule that distributes the childcare assignments as evenly as possible.",
   "main": "index.js",
   "scripts": {
