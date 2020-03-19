@@ -40,11 +40,13 @@ function isValidAssignment(
     for (let iworker = 0; iworker < nworkers; iworker++) {
         for (let iassign of assignmentsByWorker[iworker]) {
             if (!availabilityByWorker[iworker].includes(iassign)) {
-                throw "Worker " +
-                    iworker +
-                    " was assigned Day " +
-                    iassign +
-                    " despite unavailability.";
+                throw new Error(
+                    "Worker " +
+                        iworker +
+                        " was assigned Day " +
+                        iassign +
+                        " despite unavailability."
+                );
                 return false;
             }
         }
@@ -69,13 +71,15 @@ function isFairAssignment(
                     assignmentsByWorker[availableWorker].length <
                     assignmentsByWorker[assignedWorker].length - 1
                 ) {
-                    throw "Day " +
-                        iday +
-                        " assigned to Worker " +
-                        assignedWorker +
-                        " even though Worker " +
-                        availableWorker +
-                        " had sufficiently lower total assigned workload.";
+                    throw new Error(
+                        "Day " +
+                            iday +
+                            " assigned to Worker " +
+                            assignedWorker +
+                            " even though Worker " +
+                            availableWorker +
+                            " had sufficiently lower total assigned workload."
+                    );
                     return false;
                 }
             }
@@ -207,7 +211,8 @@ describe("scheduler.computeSchedule()", function() {
                     [0, 4, 2, 1, 3],
                     [1, 2, 0, 3, 4]
                 ]
-            }
+            },
+            given: [0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2]
         },
         {
             name: "Test Case: 05 People, 20 Days, .7 Availability",
@@ -263,6 +268,7 @@ describe("scheduler.computeSchedule()", function() {
         }
     ];
 
+    const USE_GIVEN = false;
     tests.forEach(function(test) {
         //console.log(test.name);
         //console.log(test.input.availabilityByDay);
@@ -273,6 +279,13 @@ describe("scheduler.computeSchedule()", function() {
         //assignemnt is an array, the first part of which is an assignment,
         // the second part of which is an "unfairness" score
         var assignmentsByDay = assignment[0];
+
+        /* if you want to test the tests, you can add a 'given' assignment
+         to the test and see what it thinks */
+        if (USE_GIVEN && test.hasOwnProperty("given")) {
+            assignmentsByDay = test.given;
+        }
+
         var assignmentsByWorker = createAssignmentsByWorker(
             test.input.nworkers,
             assignmentsByDay
